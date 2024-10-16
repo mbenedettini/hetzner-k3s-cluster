@@ -1,0 +1,16 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: podinfo
+  namespace: podinfo
+spec:
+  gateways:
+  - istio-ingress/istio-gw
+  hosts:
+  - k3s.marianobe.cc
+  http:
+  - route:
+    - destination:
+        host: podinfo.podinfo.svc.cluster.local
+        port:
+          number: 9898

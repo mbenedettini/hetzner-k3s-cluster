@@ -6,25 +6,29 @@ metadata:
 spec:
   interval: 24h
   url: https://charts.hetzner.cloud
-# ---
-# apiVersion: helm.toolkit.fluxcd.io/v2
-# kind: HelmRelease
-# metadata:
-#   name: hccm
-#   namespace: kube-system
-# spec:
-#   chart:
-#     spec:
-#       chart: hcloud-cloud-controller-manager
-#       sourceRef:
-#         kind: HelmRepository
-#         name: hcloud-cloud-controller-manager
-#   timeout: 15m
-#   interval: 1h
-#   install:
-#     remediation:
-#       retries: 3
-#   values:
-#     networking:
-#       enabled: true
-#     clusterCIDR: 10.0.16.0/20
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: hccm
+  namespace: kube-system
+spec:
+  chart:
+    spec:
+      chart: hcloud-cloud-controller-manager
+      sourceRef:
+        kind: HelmRepository
+        name: hcloud-cloud-controller-manager
+  timeout: 15m
+  interval: 1h
+  install:
+    remediation:
+      retries: 3
+  values:
+    networking:
+      enabled: true
+      clusterCIDR: 10.0.16.0/20
+    additionalTolerations:
+      - key: "node-role.kubernetes.io/master"
+        operator: "Exists"
+        effect: "NoSchedule"

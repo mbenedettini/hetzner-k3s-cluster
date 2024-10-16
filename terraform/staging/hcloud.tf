@@ -22,11 +22,6 @@ module "network" {
       name     = "control"
       zone     = "us-east"
       ip_range = "10.0.1.0/24"
-    },
-    {
-      name     = "service"
-      zone     = "us-east"
-      ip_range = "10.0.16.0/20"
     }
   ]
 }

@@ -6,4 +6,4 @@ resources:
   - base.yaml
   - istiod.yaml
   - ingress-gateway.yaml
-  # - gateway.yaml
+  - gateway.yaml

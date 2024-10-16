@@ -9,4 +9,4 @@ kubeconfig.yaml
 **/.terraform/*
 
 # SSH keys
-staging/keys
+keys

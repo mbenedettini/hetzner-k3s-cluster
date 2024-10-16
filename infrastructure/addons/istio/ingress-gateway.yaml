@@ -23,3 +23,6 @@ spec:
         - name: http2
           port: 80
           protocol: TCP
+    annotations:
+      load-balancer.hetzner.cloud/location: ash
+      load-balancer.hetzner.cloud/use-private-ip: "true"

@@ -25,6 +25,8 @@
             terraform
             kubernetes-helm
             yq-go
+            fluxcd
+            k9s
           ];
 
           shellHook = ''

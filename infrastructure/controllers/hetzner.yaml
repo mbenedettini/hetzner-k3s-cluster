@@ -28,6 +28,8 @@ spec:
     networking:
       enabled: true
       clusterCIDR: 10.0.16.0/20
+    nodeSelector:
+      node-role.kubernetes.io/master: "true"
     additionalTolerations:
       - key: "node-role.kubernetes.io/master"
         operator: "Exists"

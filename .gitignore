@@ -1,0 +1,12 @@
+.DS_Store
+local.auto.tfvars
+secrets.auto.tfvars
+.envrc-secrets
+.direnv
+kubeconfig.yaml
+
+# Local .terraform directories
+**/.terraform/*
+
+# SSH keys
+staging/keys

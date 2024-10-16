@@ -1,0 +1,23 @@
+#cloud-config
+package_update: true
+packages:
+  - curl
+users:
+  - name: cluster
+    ssh_authorized_keys:
+      - ${ssh_authorized_key}
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+
+write_files:
+  - path: /root/.ssh/id_rsa
+    permissions: '0600'
+    content: ${indent(4, yamlencode(ssh_private_key))}
+
+runcmd:
+  # just in case, wait for the master node to be ready 
+  - until curl -k https://10.0.1.1:6443; do sleep 5; done
+  # copy the token from the master node
+  - REMOTE_TOKEN=$(ssh -o StrictHostKeyChecking=accept-new cluster@10.0.1.1 sudo cat /var/lib/rancher/k3s/server/node-token)
+  # Install k3s worker
+  - curl -sfL https://get.k3s.io | K3S_URL=https://10.0.1.1:6443 K3S_TOKEN=$REMOTE_TOKEN sh -

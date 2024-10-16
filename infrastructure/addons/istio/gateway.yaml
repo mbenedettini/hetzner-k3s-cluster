@@ -6,11 +6,10 @@ metadata:
 spec:
   selector:
     istio: ingress
-  spec:
-    servers:
-    - port:
-        number: 80
-        name: http
-        protocol: HTTP
-      hosts:
-        - k3s.marianobe.cc
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+      - k3s.marianobe.cc

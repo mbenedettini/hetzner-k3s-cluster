@@ -3,7 +3,7 @@ kind: Kustomization
 namespace: podinfo
 resources:
   - ../../base/podinfo
-  # - virtual-service.yaml
+  - virtual-service.yaml
 patches:
   - path: podinfo-values.yaml
     target:

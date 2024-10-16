@@ -10,6 +10,9 @@ users:
 write_files:
   - path: /etc/rancher/k3s/config.yaml
     content: |
+      node-taint:
+        - "node-role.kubernetes.io/master=effect:NoSchedule"
+      disable-cloud-controller: true
       disable: traefik
       tls-san:
         - 10.0.1.1
@@ -18,6 +21,11 @@ write_files:
       advertise-address: 10.0.1.1
       node-ip: 10.0.1.1
       node-external-ip: 10.0.1.1
+
+      kubelet-arg:
+        - "address=10.0.1.1"
+        - "cloud-provider=external"
 runcmd:
-  - curl -sfL https://get.k3s.io | sh -s - --kubelet-arg=address=10.0.1.1 \
-    --kube-scheduler-arg=address=10.0.1.1
+  - curl -sfL https://get.k3s.io | sh -
+  - chown cluster:cluster /etc/rancher/k3s/k3s.yaml
+  - chown cluster:cluster /var/lib/rancher/k3s/server/node-token

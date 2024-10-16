@@ -26,7 +26,8 @@
             kubernetes-helm
             yq-go
             fluxcd
-            k9s
+            gnupg
+            sops
           ];
 
           shellHook = ''

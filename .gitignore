@@ -10,3 +10,6 @@ kubeconfig.yaml
 
 # SSH keys
 keys
+
+# Plaintext secret files
+*-plain.yaml

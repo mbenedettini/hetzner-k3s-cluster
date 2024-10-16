@@ -17,8 +17,12 @@ spec:
         namespace: flux-system
   values:
     pilot:
+      autoscaleEnabled: false
       replicaCount: 1
-      autoscaleMin: 1
+      resources:
+        requests:
+          cpu: 150m
+          memory: 512Mi
 
   upgrade:
     remediation:

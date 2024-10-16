@@ -5,3 +5,4 @@ resources:
   - repository.yaml
   - base.yaml
   - istiod.yaml
+  - ingress-gateway.yaml

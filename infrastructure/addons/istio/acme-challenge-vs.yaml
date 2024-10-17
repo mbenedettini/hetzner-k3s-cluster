@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: acme-challenge
+  namespace: istio-ingress
+spec:
+  hosts:
+    - k3s.marianobe.cc
+  gateways:
+    - istio-gw
+  http:
+    - match:
+        - uri:
+            prefix: /.well-known/acme-challenge/
+      route:
+        - destination:
+            host: cm-acme-http-solver-service
+            port:
+              number: 8089

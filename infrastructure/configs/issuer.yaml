@@ -24,3 +24,5 @@ spec:
   commonName: k3s.marianobe.cc
   dnsNames:
   - k3s.marianobe.cc
+  issuerRef:
+    name: letsencrypt

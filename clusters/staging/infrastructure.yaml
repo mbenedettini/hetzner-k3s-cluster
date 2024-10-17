@@ -63,5 +63,5 @@ spec:
           path: /spec/acme/email
           value: mariano+letsencrypt@marianobe.cc
       target:
-        kind: Issuer
+        kind: ClusterIssuer
         name: letsencrypt

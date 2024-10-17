@@ -19,11 +19,7 @@ spec:
     solvers:
       - http01:
           ingress:
-            ingressClassName: istio
-            ingressTemplate:
-              metadata:
-                annotations:
-                  kubernetes.io/ingress.class: istio
+            class: istio
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate

@@ -25,4 +25,5 @@ spec:
           protocol: TCP
     annotations:
       load-balancer.hetzner.cloud/location: ash
+      load-balancer.hetzner.cloud/name: main-load-balancer
       load-balancer.hetzner.cloud/use-private-ip: "true"

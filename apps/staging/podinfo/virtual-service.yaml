@@ -11,7 +11,7 @@ spec:
   http:
   - match:
     - uri:
-        prefix: /podinfo
+        prefix: /podinfo/
     route:
     - destination:
         host: podinfo.podinfo.svc.cluster.local

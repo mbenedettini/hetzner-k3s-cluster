@@ -28,6 +28,7 @@
             fluxcd
             gnupg
             sops
+            k9s
           ];
 
           shellHook = ''

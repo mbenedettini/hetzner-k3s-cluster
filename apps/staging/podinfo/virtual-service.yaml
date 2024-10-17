@@ -9,8 +9,13 @@ spec:
   hosts:
   - k3s.marianobe.cc
   http:
-  - route:
+  - match:
+    - uri:
+        prefix: /podinfo
+    route:
     - destination:
         host: podinfo.podinfo.svc.cluster.local
         port:
           number: 9898
+    rewrite:
+      uri: /

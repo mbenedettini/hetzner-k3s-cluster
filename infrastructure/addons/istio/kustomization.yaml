@@ -7,4 +7,3 @@ resources:
   - istiod.yaml
   - ingress-gateway.yaml
   - gateway.yaml
-  - acme-challenge-vs.yaml

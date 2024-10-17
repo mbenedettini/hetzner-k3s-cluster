@@ -7,14 +7,14 @@ spec:
   selector:
     istio: ingress
   servers:
-  # - port:
-  #     number: 80
-  #     name: http
-  #     protocol: HTTP
-  #   hosts:
-  #     - k3s.marianobe.cc
-  #   # tls:
-  #   #   httpsRedirect: true
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+      - k3s.marianobe.cc
+    tls:
+      httpsRedirect: false
   - port:
       number: 443
       name: https
@@ -23,12 +23,4 @@ spec:
       - k3s.marianobe.cc
     tls:
       mode: SIMPLE
-      credentialName: k3s-marianobe-cc-tls
-  - port:
-      number: 80
-      name: http-acme-challenge
-      protocol: HTTP
-    hosts:
-      - k3s.marianobe.cc
-    tls:
-      httpsRedirect: false
+      credentialName: k3s-ingress-cert

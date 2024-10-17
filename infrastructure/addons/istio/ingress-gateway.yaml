@@ -23,6 +23,9 @@ spec:
         - name: http2
           port: 80
           protocol: TCP
+        - name: https
+          port: 443
+          protocol: TCP
     annotations:
       load-balancer.hetzner.cloud/location: ash
       load-balancer.hetzner.cloud/name: main-load-balancer

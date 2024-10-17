@@ -7,14 +7,14 @@ spec:
   selector:
     istio: ingress
   servers:
-  - port:
-      number: 80
-      name: http
-      protocol: HTTP
-    hosts:
-      - k3s.marianobe.cc
-    tls:
-      httpsRedirect: true
+  # - port:
+  #     number: 80
+  #     name: http
+  #     protocol: HTTP
+  #   hosts:
+  #     - k3s.marianobe.cc
+  #   # tls:
+  #   #   httpsRedirect: true
   - port:
       number: 443
       name: https

@@ -20,11 +20,12 @@ write_files:
       write-kubeconfig-mode: "0644"
       advertise-address: 10.0.1.1
       node-ip: 10.0.1.1
-      node-external-ip: 10.0.1.1
 
       kubelet-arg:
         - "address=10.0.1.1"
         - "cloud-provider=external"
+      flannel-iface: enp7s0
+
 runcmd:
   - curl -sfL https://get.k3s.io | sh -
   - chown cluster:cluster /etc/rancher/k3s/k3s.yaml

@@ -1,6 +1,6 @@
 # K3s cluster on Hetzner Cloud using Terraform + FluxCD
 
-![Terraform checks](https://github.com/mbenedettini/hetzner-k3s-cluster/actions/workflows/terraform-checks.yaml/badge.svg)
+![Terraform checks](https://github.com/mbenedettini/hetzner-k3s-cluster/actions/workflows/terraform-checks.yml/badge.svg)
 
 ![Flux checks](https://github.com/mbenedettini/hetzner-k3s-cluster/actions/workflows/flux-checks.yaml/badge.svg)
 

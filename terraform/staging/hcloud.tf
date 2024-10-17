@@ -60,28 +60,28 @@ resource "hcloud_server" "master_node" {
   user_data = module.cloud_init.master_cloud_init_config
 }
 
-resource "hcloud_server" "worker_nodes" {
-  count = 1
+# resource "hcloud_server" "worker_nodes" {
+#   count = 1
 
-  name        = "worker-node-${count.index}"
-  image       = local.ubuntu_image
-  server_type = "cpx11"
-  location    = "ash"
+#   name        = "worker-node-${count.index}"
+#   image       = local.ubuntu_image
+#   server_type = "cpx11"
+#   location    = "ash"
 
-  public_net {
-    ipv4_enabled = true
-    ipv6_enabled = false
-  }
+#   public_net {
+#     ipv4_enabled = true
+#     ipv6_enabled = false
+#   }
 
-  network {
-    network_id = module.network.network_id
-  }
+#   network {
+#     network_id = module.network.network_id
+#   }
 
-  lifecycle {
-    ignore_changes = [network]
-  }
+#   lifecycle {
+#     ignore_changes = [network]
+#   }
 
-  user_data = module.cloud_init.worker_cloud_init_config
-}
+#   user_data = module.cloud_init.worker_cloud_init_config
+# }
 
 

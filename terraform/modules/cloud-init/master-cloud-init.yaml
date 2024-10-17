@@ -10,8 +10,9 @@ users:
 write_files:
   - path: /etc/rancher/k3s/config.yaml
     content: |
-      node-taint:
-        - "node-role.kubernetes.io/master=effect:NoSchedule"
+      cluster-init: true
+      # node-taint:
+      #   - "node-role.kubernetes.io/master=effect:NoSchedule"
       disable-cloud-controller: true
       disable: traefik
       tls-san:

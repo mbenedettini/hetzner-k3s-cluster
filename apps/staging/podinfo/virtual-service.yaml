@@ -17,3 +17,5 @@ spec:
         host: podinfo.podinfo.svc.cluster.local
         port:
           number: 9898
+    rewrite:
+      uri: /

@@ -6,10 +6,4 @@ metadata:
 spec:
   test:
     enable: false
-  values:
-    ingress:
-      hosts:
-        - host: podinfo.local
-          paths:
-            - path: /podinfo
-              pathType: ImplementationSpecific
+  # values:

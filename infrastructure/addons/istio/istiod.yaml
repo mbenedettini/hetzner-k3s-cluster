@@ -18,6 +18,7 @@ spec:
   values:
     meshConfig:
       ingressClass: istio
+      ingressSelector: ingress
     pilot:
       autoscaleEnabled: false
       replicaCount: 1

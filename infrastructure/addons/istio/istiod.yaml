@@ -16,6 +16,8 @@ spec:
         name: istio
         namespace: flux-system
   values:
+    meshConfig:
+      ingressClass: istio
     pilot:
       autoscaleEnabled: false
       replicaCount: 1

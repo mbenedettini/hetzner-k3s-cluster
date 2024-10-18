@@ -13,16 +13,6 @@ spec:
       - k3s.marianobe.cc
       - marianobe.cc
       - www.marianobe.cc
-    tls:
-      httpsRedirect: true
-    # Add exception for /.well-known paths
-    match:
-      - uri:
-          prefix: "/.well-known"
-      - uri:
-          prefix: "/"
-        tls:
-          httpsRedirect: false
   - port:
       number: 443
       name: https
@@ -34,6 +24,24 @@ spec:
     tls:
       mode: SIMPLE
       credentialName: k3s-ingress-cert
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: redirect-https-except-http01
+  namespace: istio-ingress
+spec:
+  gateways:
+  - istio-ingress/istio-gw
+  hosts:
+  - "*"
+  http:
+    - match:
+        - withoutHeaders:
+            :path:
+              prefix: /.well-known/acme-challenge/
+      redirect:
+        scheme: https
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate

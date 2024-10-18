@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: marianobe-site
+  namespace: marianobe-site
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: marianobe-site
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: marianobe-site
+    spec:
+      containers:
+      - name: marianobe-site
+        image: r2-registry-production.mbenedettini-cloudflare.workers.dev/marianobe-site:38c08661
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 50m
+            memory: 64Mi
+      imagePullSecrets:
+      - name: cloudflare-private-registry

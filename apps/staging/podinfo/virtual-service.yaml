@@ -7,7 +7,7 @@ spec:
   gateways:
   - istio-ingress/istio-gw
   hosts:
-  - k3s.marianobe.cc
+  - k3s-0.marianobe.cc
   http:
   - match:
     - uri:

@@ -24,13 +24,13 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: ingress-cert-0
+  name: ingress-cert
   namespace: istio-ingress
 spec:
-  secretName: k3s-ingress-cert-0
-  commonName: k3s.marianobe.cc
+  secretName: k3s-ingress-cert
+  commonName: k3s-0.marianobe.cc
   dnsNames:
-  - k3s.marianobe.cc
+  - k3s-0.marianobe.cc
   issuerRef:
     name: letsencrypt
     kind: ClusterIssuer

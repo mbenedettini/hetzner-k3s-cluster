@@ -13,7 +13,7 @@ spec:
       name: http
       protocol: HTTP
     hosts:
-      - k3s.marianobe.cc
+      - k3s-0.marianobe.cc
     tls:
       httpsRedirect: false
   # - port:

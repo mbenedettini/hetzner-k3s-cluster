@@ -16,12 +16,12 @@ spec:
       - k3s.marianobe.cc
     tls:
       httpsRedirect: false
-  - port:
-      number: 443
-      name: https
-      protocol: HTTPS
-    hosts:
-      - k3s.marianobe.cc
-    tls:
-      mode: SIMPLE
-      credentialName: k3s-ingress-cert
+  # - port:
+  #     number: 443
+  #     name: https
+  #     protocol: HTTPS
+  #   hosts:
+  #     - k3s.marianobe.cc
+  #   tls:
+  #     mode: SIMPLE
+  #     credentialName: k3s-ingress-cert

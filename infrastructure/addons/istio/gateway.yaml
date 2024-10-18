@@ -37,9 +37,8 @@ spec:
   - "*"
   http:
     - match:
-        - withoutHeaders:
-            :path:
-              prefix: /.well-known/acme-challenge/
+      - uri:
+          prefix: /.well-known/acme-challenge/
       redirect:
         scheme: https
 ---

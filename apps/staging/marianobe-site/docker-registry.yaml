@@ -5,7 +5,6 @@ kind: Secret
 metadata:
     creationTimestamp: null
     name: cloudflare-private-registry
-    namespace: kube-system
 type: kubernetes.io/dockerconfigjson
 sops:
     kms: []

@@ -15,6 +15,14 @@ spec:
       - www.marianobe.cc
     tls:
       httpsRedirect: true
+    # Add exception for /.well-known paths
+    match:
+      - uri:
+          prefix: "/.well-known"
+      - uri:
+          prefix: "/"
+        tls:
+          httpsRedirect: false
   - port:
       number: 443
       name: https

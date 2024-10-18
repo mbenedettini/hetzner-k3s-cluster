@@ -5,3 +5,4 @@ resources:
   - docker-registry.yaml
   - deployment.yaml
   - service.yaml
+  - virtual-service.yaml

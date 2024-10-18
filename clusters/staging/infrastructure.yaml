@@ -65,21 +65,21 @@ spec:
     provider: sops
     secretRef:
       name: sops-gpg
-patches:
-  - patch: |-
-      apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      metadata:
-        name: istiod
-      spec:
-        values:
-          pilot:
-            autoscaleEnabled: false
-            replicaCount: 1
-            resources:
-              requests:
-                cpu: 100m
-                memory: 128Mi
-      target:
+  patches:
+    - patch: |-
+        apiVersion: helm.toolkit.fluxcd.io/v2beta1
         kind: HelmRelease
-        name: istiod
+        metadata:
+          name: istiod
+        spec:
+          values:
+            pilot:
+              autoscaleEnabled: false
+              replicaCount: 1
+              resources:
+                requests:
+                  cpu: 100m
+                  memory: 128Mi
+        target:
+          kind: HelmRelease
+          name: istiod

@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: IngressClass
 metadata:
   name: istio
-  namespace: istio-system
+  namespace: istio-ingress
 spec:
   controller: istio.io/ingress-controller
 ---
@@ -10,7 +10,7 @@ apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
   name: letsencrypt
-  namespace: istio-system
+  namespace: istio-ingress
 spec:
   acme:
     # Email and server are set on a per-cluster basis
@@ -25,7 +25,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: ingress-cert
-  namespace: istio-system
+  namespace: istio-ingress
 spec:
   secretName: k3s-ingress-cert
   commonName: k3s.marianobe.cc

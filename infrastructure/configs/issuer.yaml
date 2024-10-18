@@ -28,9 +28,9 @@ metadata:
   namespace: istio-ingress
 spec:
   secretName: k3s-ingress-cert
-  commonName: k3s-0.marianobe.cc
+  commonName: k3s.marianobe.cc
   dnsNames:
-  - k3s-0.marianobe.cc
+  - k3s.marianobe.cc
   issuerRef:
     name: letsencrypt
     kind: ClusterIssuer

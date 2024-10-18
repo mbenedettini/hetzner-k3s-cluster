@@ -24,8 +24,9 @@ spec:
       replicaCount: 1
       resources:
         requests:
-          cpu: 150m
-          memory: 256Mi
+          # TODO: patch these values in cluster kustomization
+          cpu: 100m
+          memory: 128Mi
 
   upgrade:
     remediation:

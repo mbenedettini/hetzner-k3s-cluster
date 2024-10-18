@@ -83,3 +83,4 @@ spec:
         target:
           kind: HelmRelease
           name: istiod
+          namespace: istio-system

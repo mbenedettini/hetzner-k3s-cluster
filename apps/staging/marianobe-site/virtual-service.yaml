@@ -1,0 +1,20 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: marianobe-site
+  namespace: marianobe-site
+spec:
+  gateways:
+  - istio-ingress/istio-gw
+  hosts:
+  - marianobe.cc
+  - www.marianobe.cc
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: marianobe-site.marianobe-site.svc.cluster.local
+        port:
+          number: 80

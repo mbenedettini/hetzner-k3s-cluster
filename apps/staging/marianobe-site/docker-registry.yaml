@@ -5,6 +5,7 @@ kind: Secret
 metadata:
     creationTimestamp: null
     name: cloudflare-private-registry
+    namespace: marianobe-site
 type: kubernetes.io/dockerconfigjson
 sops:
     kms: []

@@ -5,8 +5,8 @@ metadata:
   namespace: istio-ingress
 spec:
   selector:
-    - istio: ingress
-    - acme.cert-manager.io/http01-solver: "true"
+    istio: ingress
+    acme.cert-manager.io/http01-solver: "true"
   servers:
   - port:
       number: 80

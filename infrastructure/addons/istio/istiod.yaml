@@ -19,15 +19,6 @@ spec:
     meshConfig:
       ingressClass: istio
       ingressSelector: ingress
-    pilot:
-      autoscaleEnabled: false
-      replicaCount: 1
-      resources:
-        requests:
-          # TODO: patch these values in cluster kustomization
-          cpu: 100m
-          memory: 128Mi
-
   upgrade:
     remediation:
       retries: 3

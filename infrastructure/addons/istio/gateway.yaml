@@ -38,7 +38,7 @@ spec:
   http:
     - match:
       - uri:
-          prefix: /.well-known/acme-challenge/
+          regex: "^(?!/\.well-known/acme-challenge/).*$"
       redirect:
         scheme: https
 ---

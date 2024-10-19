@@ -10,6 +10,11 @@ spec:
   - marianobe.cc
   - www.marianobe.cc
   http:
+  - match:
+    - authority:
+        exact: www.marianobe.cc
+    redirect:
+      authority: marianobe.cc
   - route:
     - destination:
         host: marianobe-site.marianobe-site.svc.cluster.local

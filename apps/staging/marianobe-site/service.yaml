@@ -2,9 +2,13 @@ apiVersion: v1
 kind: Service
 metadata:
   name: marianobe-site
-  namespace: marianobe-site
+  labels:
+    app.kubernetes.io/name: span-api
 spec:
+  selector:
+    app.kubernetes.io/name: marianobe-site
   ports:
     - protocol: TCP
       port: 80
       targetPort: 80
+  type: ClusterIP

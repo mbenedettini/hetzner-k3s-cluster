@@ -13,6 +13,8 @@ spec:
       - k3s.marianobe.cc
       - marianobe.cc
       - www.marianobe.cc
+    tls:
+      httpsRedirect: true
   - port:
       number: 443
       name: https
@@ -25,28 +27,13 @@ spec:
       mode: SIMPLE
       credentialName: k3s-ingress-cert
 ---
-apiVersion: networking.istio.io/v1beta1
-kind: VirtualService
-metadata:
-  name: redirect-https-except-http01
-  namespace: istio-ingress
-spec:
-  gateways:
-  - istio-ingress/istio-gw
-  hosts:
-  - "*"
-  http:
-    - match:
-      - uri:
-          regex: "^(?!/\.well-known/acme-challenge/).*$"
-      redirect:
-        scheme: https
----
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: marianobe-site-cert
   namespace: istio-ingress
+  annotations:
+    cert-manager.io/issue-temporary-certificate: "true"
 spec:
   secretName: k3s-ingress-cert
   commonName: marianobe.cc

@@ -10,10 +10,7 @@ spec:
   - marianobe.cc
   - www.marianobe.cc
   http:
-  - match:
-    - uri:
-        prefix: /
-    route:
+  - route:
     - destination:
         host: marianobe-site.marianobe-site.svc.cluster.local
         port:

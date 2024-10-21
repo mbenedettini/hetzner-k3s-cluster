@@ -48,3 +48,4 @@ Alternatively use an app such as
 ## TODO
 
 1) Add more (worker) nodes + autoscaler. Worker nodes templates would be defined by Terraform with count = 0 and Autoscaler should decide how many are needed.
+2) Add an Airbyte or Dagster pipeline to show how these workflows can be implemented and scale using inexpensive computing power.

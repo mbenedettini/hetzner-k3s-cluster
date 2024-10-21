@@ -36,7 +36,7 @@ jobs:
       - name: Change image tag
         env:
           IMAGE_TAG: ${{ steps.define.outputs.docker_image_tag }}
-        run: yq eval '.spec.template.spec.containers[0].image=env(REPO) + ":" + ${{ github.event.client_payload.sha }}' -i ${{ steps.define.outputs.file_to_change }}
+        run: yq eval '.spec.template.spec.containers[0].image=env(REPO) + ":${{ github.event.client_payload.sha }}"' -i ${{ steps.define.outputs.file_to_change }}
       - name: Commit and Push
         run: |
           git config user.name "flux-infra[bot]"

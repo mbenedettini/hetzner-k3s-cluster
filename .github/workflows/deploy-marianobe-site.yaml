@@ -42,5 +42,5 @@ jobs:
           git config user.name "flux-infra[bot]"
           git config user.email "flux-infra[bot]@users.noreply.github.com"
           git add ${{ steps.define.outputs.file_to_change }}
-          git commit -m "[Deploy] Marianobe Site [${{steps.define.outputs.docker_image_tag}}]"
+          git commit -m "[Deploy] Marianobe Site [${{github.event.client_payload.sha}}]"
           git push

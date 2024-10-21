@@ -14,16 +14,16 @@ spec:
         app.kubernetes.io/name: marianobe-site
     spec:
       containers:
-      - name: marianobe-site
-        image: r2-registry-production.mbenedettini-cloudflare.workers.dev/marianobe-site:38c08661
-        ports:
-        - containerPort: 80
-        resources:
-          limits:
-            cpu: 100m
-            memory: 128Mi
-          requests:
-            cpu: 50m
-            memory: 64Mi
+        - name: marianobe-site
+          image: r2-registry-production.mbenedettini-cloudflare.workers.dev/marianobe-site:53f67da9
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 50m
+              memory: 64Mi
       imagePullSecrets:
-      - name: cloudflare-private-registry
+        - name: cloudflare-private-registry

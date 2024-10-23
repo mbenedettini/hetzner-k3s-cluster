@@ -13,6 +13,8 @@ spec:
       - k3s.marianobe.cc
       - marianobe.cc
       - www.marianobe.cc
+      - platformengineering.works
+      - www.platformengineering.works
     tls:
       httpsRedirect: true
   - port:
@@ -23,6 +25,8 @@ spec:
       - k3s.marianobe.cc
       - marianobe.cc
       - www.marianobe.cc
+      - platformengineering.works
+      - www.platformengineering.works
     tls:
       mode: SIMPLE
       credentialName: k3s-ingress-cert-0

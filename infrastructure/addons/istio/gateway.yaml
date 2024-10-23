@@ -36,6 +36,9 @@ kind: Certificate
 metadata:
   name: marianobe-site-cert
   namespace: istio-ingress
+  # This is only needed the first time the cert is issued, when adding 
+  # new names to the cert verification doesn't really need the cert to be 
+  # actually valid
   # annotations:
   #   cert-manager.io/issue-temporary-certificate: "true"
 spec:

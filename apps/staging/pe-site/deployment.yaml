@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: pe-site
-          image: r2-registry-production.mbenedettini-cloudflare.workers.dev/pe-site:b0acd626
+          image: r2-registry-production.mbenedettini-cloudflare.workers.dev/pe-site:f45ab8a0
           ports:
             - containerPort: 80
           resources:

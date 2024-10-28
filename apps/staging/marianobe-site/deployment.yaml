@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: marianobe-site
-          image: r2-registry-production.mbenedettini-cloudflare.workers.dev/marianobe-site:79f06fa3
+          image: r2-registry-production.mbenedettini-cloudflare.workers.dev/marianobe-site:e9fbdbf7
           ports:
             - containerPort: 80
           resources:

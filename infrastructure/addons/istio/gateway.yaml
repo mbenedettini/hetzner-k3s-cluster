@@ -15,8 +15,9 @@ spec:
       - www.marianobe.cc
       - platformengineering.works
       - www.platformengineering.works
-    # tls:
-    #   httpsRedirect: true
+    # TODO: this breaks ongoing cert renewal
+    tls:
+      httpsRedirect: true
   - port:
       number: 443
       name: https

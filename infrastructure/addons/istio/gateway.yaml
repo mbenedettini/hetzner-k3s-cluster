@@ -27,29 +27,29 @@ spec:
       - www.marianobe.cc
       - platformengineering.works
       - www.platformengineering.works
-    tls:
-      mode: SIMPLE
-      credentialName: k3s-ingress-cert-0
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: marianobe-site-cert
-  namespace: istio-ingress
-  # This is only needed the first time the cert is issued, when adding 
-  # new names to the cert verification doesn't really need the cert to be 
-  # actually valid
-  # annotations:
-  #   cert-manager.io/issue-temporary-certificate: "true"
-spec:
-  secretName: k3s-ingress-cert-0
-  commonName: marianobe.cc
-  dnsNames:
-  - k3s.marianobe.cc
-  - marianobe.cc
-  - www.marianobe.cc
-  - platformengineering.works
-  - www.platformengineering.works
-  issuerRef:
-    name: letsencrypt
-    kind: ClusterIssuer
+    # tls:
+    #   mode: SIMPLE
+    #   credentialName: k3s-ingress-cert-0
+# ---
+# apiVersion: cert-manager.io/v1
+# kind: Certificate
+# metadata:
+#   name: marianobe-site-cert
+#   namespace: istio-ingress
+#   # This is only needed the first time the cert is issued, when adding 
+#   # new names to the cert verification doesn't really need the cert to be 
+#   # actually valid
+#   # annotations:
+#   #   cert-manager.io/issue-temporary-certificate: "true"
+# spec:
+#   secretName: k3s-ingress-cert-0
+#   commonName: marianobe.cc
+#   dnsNames:
+#   - k3s.marianobe.cc
+#   - marianobe.cc
+#   - www.marianobe.cc
+#   - platformengineering.works
+#   - www.platformengineering.works
+#   issuerRef:
+#     name: letsencrypt
+#     kind: ClusterIssuer

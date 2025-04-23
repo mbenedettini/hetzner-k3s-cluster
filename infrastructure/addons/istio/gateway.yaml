@@ -16,8 +16,8 @@ spec:
       - platformengineering.works
       - www.platformengineering.works
     # TODO: this breaks ongoing cert renewal
-    tls:
-      httpsRedirect: true
+    # tls:
+      # httpsRedirect: true
   - port:
       number: 443
       name: https

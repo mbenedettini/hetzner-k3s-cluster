@@ -11,6 +11,14 @@ spec:
   - www.marianobe.cc
   http:
   - match:
+    - uri:
+        prefix: /
+      scheme:
+        exact: http
+    redirect:
+      scheme: https
+      redirectCode: 302
+  - match:
     - authority:
         exact: www.marianobe.cc
     redirect:

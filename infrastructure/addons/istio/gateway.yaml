@@ -15,7 +15,7 @@ spec:
       - www.marianobe.cc
       - platformengineering.works
       - www.platformengineering.works
-    # TODO: this breaks ongoing cert renewal
+    # This was replaced by a more specific redirect in each VirtualService
     # tls:
       # httpsRedirect: true
   - port:

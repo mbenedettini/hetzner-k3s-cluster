@@ -25,7 +25,7 @@ spec:
 
     management:
       image:
-        tag: v0.69.0
+        tag: 0.69.0
       podCommand:
         args:
           - --port=80
@@ -106,7 +106,7 @@ spec:
 
     signal:
       image:
-        tag: v0.69.0
+        tag: 0.69.0
       resources:
         requests:
           cpu: 50m
@@ -117,7 +117,7 @@ spec:
 
     relay:
       image:
-        tag: v0.69.0
+        tag: 0.69.0
       resources:
         requests:
           cpu: 50m

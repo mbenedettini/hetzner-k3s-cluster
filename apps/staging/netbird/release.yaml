@@ -1,0 +1,157 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: netbird
+  namespace: netbird
+spec:
+  interval: 30m
+  releaseName: netbird
+  targetNamespace: netbird
+  chart:
+    spec:
+      chart: netbird
+      version: "1.9.0"
+      sourceRef:
+        kind: HelmRepository
+        name: netbird
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    fullnameOverride: netbird
+
+    management:
+      image:
+        tag: v0.69.0
+      podCommand:
+        args:
+          - --port=80
+          - --log-file=console
+          - --log-level=info
+          - --disable-anonymous-metrics=false
+          - --single-account-mode-domain=marianobe.cc
+          - --dns-domain=netbird.marianobe.cc
+          - --config=/etc/netbird/management.json
+      persistentVolume:
+        enabled: true
+        size: 5Gi
+      resources:
+        requests:
+          cpu: 100m
+          memory: 256Mi
+        limits:
+          cpu: 500m
+          memory: 512Mi
+      env:
+        NETBIRD_EMBEDDED_IDP_ENABLED: "true"
+        NETBIRD_EMBEDDED_IDP_DATA_DIR: /var/lib/netbird/idp
+      envFromSecret:
+        RELAY_PASSWORD: netbird/relayPassword
+        DATASTORE_ENCRYPTION_KEY: netbird/datastoreEncryptionKey
+        NETBIRD_ENCRYPTION_KEY: netbird/encryptionKey
+      configmap: |-
+        {
+          "Stuns": [
+            {
+              "Proto": "udp",
+              "URI": "stun:stun.l.google.com:19302",
+              "Username": "",
+              "Password": ""
+            }
+          ],
+          "TURNConfig": {
+            "TimeBasedCredentials": false,
+            "CredentialsTTL": "12h0m0s",
+            "Secret": "${RELAY_PASSWORD}",
+            "Turns": []
+          },
+          "Relay": {
+            "Addresses": ["rels://netbird.marianobe.cc:443/relay"],
+            "CredentialsTTL": "24h",
+            "Secret": "${RELAY_PASSWORD}"
+          },
+          "Signal": {
+            "Proto": "https",
+            "URI": "netbird.marianobe.cc:443",
+            "Username": "",
+            "Password": ""
+          },
+          "Datadir": "/var/lib/netbird/",
+          "EncryptionKey": "${NETBIRD_ENCRYPTION_KEY}",
+          "DataStoreEncryptionKey": "${DATASTORE_ENCRYPTION_KEY}",
+          "HttpConfig": {
+            "AuthIssuer": "https://netbird.marianobe.cc/oauth2",
+            "AuthAudience": "netbird-dashboard",
+            "OIDCConfigEndpoint": "https://netbird.marianobe.cc/oauth2/.well-known/openid-configuration",
+            "AuthKeysLocation": "https://netbird.marianobe.cc/oauth2/keys",
+            "AuthUserIDClaim": "sub",
+            "IdpSignKeyRefreshEnabled": true
+          },
+          "StoreConfig": {
+            "Engine": "sqlite"
+          },
+          "EmbeddedIdP": {
+            "Enabled": true,
+            "DataDir": "/var/lib/netbird/idp"
+          },
+          "ReverseProxy": {
+            "TrustedHTTPProxies": null,
+            "TrustedHTTPProxiesCount": 0,
+            "TrustedPeers": null
+          }
+        }
+
+    signal:
+      image:
+        tag: v0.69.0
+      resources:
+        requests:
+          cpu: 50m
+          memory: 64Mi
+        limits:
+          cpu: 250m
+          memory: 256Mi
+
+    relay:
+      image:
+        tag: v0.69.0
+      resources:
+        requests:
+          cpu: 50m
+          memory: 64Mi
+        limits:
+          cpu: 250m
+          memory: 256Mi
+      envFromSecret:
+        NB_AUTH_SECRET: netbird/relayPassword
+      env:
+        NB_LOG_LEVEL: info
+        NB_LISTEN_ADDRESS: ":33080"
+        NB_EXPOSED_ADDRESS: rels://netbird.marianobe.cc:443/relay
+
+    dashboard:
+      image:
+        tag: v2.36.0
+      resources:
+        requests:
+          cpu: 50m
+          memory: 128Mi
+        limits:
+          cpu: 250m
+          memory: 256Mi
+      env:
+        NETBIRD_MGMT_API_ENDPOINT: https://netbird.marianobe.cc
+        NETBIRD_MGMT_GRPC_API_ENDPOINT: https://netbird.marianobe.cc
+        AUTH_AUDIENCE: netbird-dashboard
+        AUTH_CLIENT_ID: netbird-dashboard
+        AUTH_CLIENT_SECRET: ""
+        AUTH_AUTHORITY: https://netbird.marianobe.cc/oauth2
+        USE_AUTH0: false
+        AUTH_SUPPORTED_SCOPES: openid profile email groups
+        AUTH_REDIRECT_URI: /nb-auth
+        AUTH_SILENT_REDIRECT_URI: /nb-silent-auth
+        NETBIRD_TOKEN_SOURCE: accessToken
+        NGINX_SSL_PORT: 443

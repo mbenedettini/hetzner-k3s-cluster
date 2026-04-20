@@ -1,0 +1,80 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: netbird
+  namespace: netbird
+spec:
+  gateways:
+    - istio-ingress/istio-gw
+  hosts:
+    - netbird.marianobe.cc
+  http:
+    - match:
+        - uri:
+            prefix: /
+          scheme:
+            exact: http
+      redirect:
+        scheme: https
+        redirectCode: 302
+    - match:
+        - uri:
+            prefix: /api
+      route:
+        - destination:
+            host: netbird-management.netbird.svc.cluster.local
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /oauth2
+      route:
+        - destination:
+            host: netbird-management.netbird.svc.cluster.local
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /management.ManagementService
+      route:
+        - destination:
+            host: netbird-management.netbird.svc.cluster.local
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /ws-proxy/management
+      route:
+        - destination:
+            host: netbird-management.netbird.svc.cluster.local
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /signalexchange.SignalExchange
+      route:
+        - destination:
+            host: netbird-signal.netbird.svc.cluster.local
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /ws-proxy/signal
+      route:
+        - destination:
+            host: netbird-signal.netbird.svc.cluster.local
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /relay
+      route:
+        - destination:
+            host: netbird-relay.netbird.svc.cluster.local
+            port:
+              number: 33080
+    - route:
+        - destination:
+            host: netbird-dashboard.netbird.svc.cluster.local
+            port:
+              number: 80

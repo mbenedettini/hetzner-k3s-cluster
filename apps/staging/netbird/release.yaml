@@ -88,7 +88,11 @@ spec:
           "EmbeddedIdP": {
             "Enabled": true,
             "Issuer": "https://netbird.marianobe.cc/oauth2",
-            "DataDir": "/var/lib/netbird/idp"
+            "DataDir": "/var/lib/netbird/idp",
+            "DashboardRedirectURIs": [
+              "https://netbird.marianobe.cc/nb-auth",
+              "https://netbird.marianobe.cc/nb-silent-auth"
+            ]
           },
           "ReverseProxy": {
             "TrustedHTTPProxies": null,

@@ -95,6 +95,7 @@ spec:
           },
           "EmbeddedIdP": {
             "Enabled": true,
+            "Issuer": "https://netbird.marianobe.cc",
             "DataDir": "/var/lib/netbird/idp"
           },
           "ReverseProxy": {

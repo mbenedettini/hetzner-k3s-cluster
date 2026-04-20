@@ -82,19 +82,12 @@ spec:
           "Datadir": "/var/lib/netbird/",
           "EncryptionKey": "{{ .NETBIRD_ENCRYPTION_KEY }}",
           "DataStoreEncryptionKey": "{{ .DATASTORE_ENCRYPTION_KEY }}",
-          "HttpConfig": {
-            "AuthIssuer": "https://netbird.marianobe.cc/oauth2",
-            "AuthAudience": "netbird-dashboard",
-            "OIDCConfigEndpoint": "https://netbird.marianobe.cc/oauth2/.well-known/openid-configuration",
-            "AuthKeysLocation": "https://netbird.marianobe.cc/oauth2/keys",
-            "AuthUserIDClaim": "sub",
-            "IdpSignKeyRefreshEnabled": true
-          },
           "StoreConfig": {
             "Engine": "sqlite"
           },
           "EmbeddedIdP": {
             "Enabled": true,
+            "Issuer": "https://netbird.marianobe.cc/oauth2",
             "DataDir": "/var/lib/netbird/idp"
           },
           "ReverseProxy": {

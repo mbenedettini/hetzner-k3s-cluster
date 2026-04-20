@@ -34,6 +34,7 @@ spec:
           - --disable-anonymous-metrics=false
           - --single-account-mode-domain=marianobe.cc
           - --dns-domain=netbird.marianobe.cc
+          - --config=/etc/netbird/management.json
       persistentVolume:
         enabled: true
         size: 5Gi
@@ -64,13 +65,13 @@ spec:
           "TURNConfig": {
             "TimeBasedCredentials": false,
             "CredentialsTTL": "12h0m0s",
-            "Secret": "secret",
+            "Secret": "${RELAY_PASSWORD}",
             "Turns": []
           },
           "Relay": {
             "Addresses": ["rels://netbird.marianobe.cc:443/relay"],
             "CredentialsTTL": "24h",
-            "Secret": "{{ .RELAY_PASSWORD }}"
+            "Secret": "${RELAY_PASSWORD}"
           },
           "Signal": {
             "Proto": "https",
@@ -79,7 +80,8 @@ spec:
             "Password": ""
           },
           "Datadir": "/var/lib/netbird/",
-          "DataStoreEncryptionKey": "{{ .DATASTORE_ENCRYPTION_KEY }}",
+          "EncryptionKey": "${NETBIRD_ENCRYPTION_KEY}",
+          "DataStoreEncryptionKey": "${DATASTORE_ENCRYPTION_KEY}",
           "HttpConfig": {
             "AuthIssuer": "https://netbird.marianobe.cc/oauth2",
             "AuthAudience": "netbird-dashboard",

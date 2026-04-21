@@ -35,6 +35,7 @@ spec:
           - --single-account-mode-domain=marianobe.cc
           - --dns-domain=netbird.marianobe.cc
           - --config=/etc/netbird/management.json
+      useBackwardsGrpcService: true
       persistentVolume:
         enabled: true
         size: 5Gi

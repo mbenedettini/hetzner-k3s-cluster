@@ -38,9 +38,9 @@ spec:
             prefix: /management.ManagementService
       route:
         - destination:
-            host: netbird-management.netbird.svc.cluster.local
+            host: netbird-management-grpc.netbird.svc.cluster.local
             port:
-              number: 80
+              number: 33073
     - match:
         - uri:
             prefix: /ws-proxy/management

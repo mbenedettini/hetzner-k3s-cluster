@@ -15,7 +15,7 @@ spec:
           restartPolicy: Never
           containers:
             - name: restic-backup-checker
-              image: r2-registry-production.mbenedettini-cloudflare.workers.dev/restic-backup-checker:placeholder
+              image: r2-registry-production.mbenedettini-cloudflare.workers.dev/restic-backup-checker:949558fa
               envFrom:
                 - secretRef:
                     name: restic-backup-checker-secrets

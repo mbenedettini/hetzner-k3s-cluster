@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: restic-backup-checker
+  namespace: restic-backup-checker
+spec:
+  schedule: "30 23 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: restic-backup-checker
+              image: r2-registry-production.mbenedettini-cloudflare.workers.dev/restic-backup-checker:placeholder
+              envFrom:
+                - secretRef:
+                    name: restic-backup-checker-secrets
+              resources:
+                limits:
+                  cpu: 100m
+                  memory: 128Mi
+                requests:
+                  cpu: 50m
+                  memory: 64Mi
+          imagePullSecrets:
+            - name: cloudflare-private-registry

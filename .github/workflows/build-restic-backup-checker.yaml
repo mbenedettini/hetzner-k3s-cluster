@@ -25,10 +25,12 @@ jobs:
           length: 8
 
       - name: Build Docker image with Nix
+        id: nix-build
         run: |
           cd tools/restic-backup-checker
           nix build .#docker
-          docker load < result
+          LOADED_IMAGE=$(docker load < result | grep -oP 'Loaded image: \K.*')
+          echo "image=$LOADED_IMAGE" >> $GITHUB_OUTPUT
 
       - name: Login to private Docker registry
         uses: docker/login-action@v3
@@ -39,7 +41,7 @@ jobs:
 
       - name: Tag and push
         run: |
-          docker tag restic-backup-checker:latest \
+          docker tag ${{ steps.nix-build.outputs.image }} \
             ${{ vars.CLOUDFLARE_REGISTRY_URL }}/restic-backup-checker:${{ env.SHA }}
           docker push ${{ vars.CLOUDFLARE_REGISTRY_URL }}/restic-backup-checker:${{ env.SHA }}
 

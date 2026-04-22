@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'tools/restic-backup-checker/**'
+  workflow_dispatch:
 
 jobs:
   build-push:

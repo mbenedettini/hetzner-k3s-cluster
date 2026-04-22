@@ -21,6 +21,7 @@
               curl
               bash
               coreutils
+              gnugrep
               cacert
               checkBackupScript
             ];

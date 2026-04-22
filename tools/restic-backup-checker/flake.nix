@@ -19,7 +19,7 @@
             paths = with pkgs; [
               restic
               curl
-              bashInteractive
+              bash
               coreutils
               cacert
               checkBackupScript
@@ -30,6 +30,7 @@
             Entrypoint = [ "/bin/check-backup.sh" ];
             Env = [
               "SSL_CERT_FILE=${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
+              "PATH=/bin"
             ];
           };
         };

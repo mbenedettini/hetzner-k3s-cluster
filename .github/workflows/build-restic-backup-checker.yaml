@@ -1,0 +1,51 @@
+name: Build and Push restic-backup-checker
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'tools/restic-backup-checker/**'
+
+jobs:
+  build-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v30
+        with:
+          nix_path: nixpkgs=channel:nixos-24.11
+
+      - uses: benjlevesque/short-sha@v3.0
+        id: short-sha
+        with:
+          length: 8
+
+      - name: Build Docker image with Nix
+        run: |
+          cd tools/restic-backup-checker
+          nix build .#docker
+          docker load < result
+
+      - name: Login to private Docker registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ vars.CLOUDFLARE_REGISTRY_URL }}
+          username: ${{ secrets.CLOUDFLARE_REGISTRY_USERNAME }}
+          password: ${{ secrets.CLOUDFLARE_REGISTRY_PASSWORD }}
+
+      - name: Tag and push
+        run: |
+          docker tag restic-backup-checker:latest \
+            ${{ vars.CLOUDFLARE_REGISTRY_URL }}/restic-backup-checker:${{ env.SHA }}
+          docker push ${{ vars.CLOUDFLARE_REGISTRY_URL }}/restic-backup-checker:${{ env.SHA }}
+
+      - name: Deploy
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          event-type: deploy-restic-backup-checker
+          token: ${{ secrets.FLUX_BOT_TOKEN }}
+          repository: mbenedettini/hetzner-k3s-cluster
+          client-payload: '{"sha": "${{ env.SHA }}"}'

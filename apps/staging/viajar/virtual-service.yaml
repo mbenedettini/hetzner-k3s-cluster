@@ -1,0 +1,23 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: viajar
+spec:
+  gateways:
+    - istio-ingress/istio-gw
+  hosts:
+    - turismo.marianobe.cc
+  http:
+    - match:
+        - uri:
+            prefix: /
+          scheme:
+            exact: http
+      redirect:
+        scheme: https
+        redirectCode: 302
+    - route:
+        - destination:
+            host: viajar-backend.viajar.svc.cluster.local
+            port:
+              number: 3000

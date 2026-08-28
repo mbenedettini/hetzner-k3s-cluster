@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: viajar
+resources:
+  - namespace.yaml
+  - docker-registry.yaml
+  - postgres.yaml
+  - network-policy.yaml
+  - pdf-renderer.yaml
+  - backend.yaml
+  - virtual-service.yaml

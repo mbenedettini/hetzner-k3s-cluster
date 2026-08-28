@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: viajar-backend
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: viajar-backend
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: viajar-backend
+    spec:
+      initContainers:
+        - name: wait-for-postgres
+          image: postgres:18
+          command:
+            - /bin/sh
+            - -c
+            - until pg_isready -h postgres -U viajar -d viajar; do sleep 2; done
+          resources:
+            requests:
+              cpu: 5m
+              memory: 16Mi
+            limits:
+              cpu: 50m
+              memory: 32Mi
+      containers:
+        - name: viajar-backend
+          image: r2-registry-production.mbenedettini-cloudflare.workers.dev/viajar-backend:sha-144dd22e285566b4af97e6f3f5cd9d5b2cfd39ce
+          env:
+            - name: APP_BASE_URL
+              value: https://turismo.marianobe.cc
+            - name: BETTER_AUTH_URL
+              value: https://turismo.marianobe.cc
+            - name: PDF_RENDERER_URL
+              value: http://viajar-pdf-renderer.viajar.svc.cluster.local:3001
+          envFrom:
+            - secretRef:
+                name: viajar-secrets
+          ports:
+            - name: http
+              containerPort: 3000
+          startupProbe:
+            tcpSocket:
+              port: http
+            failureThreshold: 30
+            periodSeconds: 5
+          readinessProbe:
+            tcpSocket:
+              port: http
+            periodSeconds: 5
+          livenessProbe:
+            tcpSocket:
+              port: http
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 25m
+              memory: 96Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
+      imagePullSecrets:
+        - name: cloudflare-private-registry
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: viajar-backend
+spec:
+  selector:
+    app.kubernetes.io/name: viajar-backend
+  ports:
+    - name: http
+      port: 3000
+      targetPort: http

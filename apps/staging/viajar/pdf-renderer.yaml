@@ -1,0 +1,101 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: viajar-pdf-renderer
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: viajar-pdf-renderer
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: viajar-pdf-renderer
+    spec:
+      containers:
+        - name: viajar-pdf-renderer
+          image: r2-registry-production.mbenedettini-cloudflare.workers.dev/viajar-pdf-renderer:sha-144dd22e285566b4af97e6f3f5cd9d5b2cfd39ce
+          env:
+            - name: BROWSER_WS_ENDPOINT
+              value: ws://127.0.0.1:3000/
+          ports:
+            - name: http
+              containerPort: 3001
+          startupProbe:
+            httpGet:
+              path: /health
+              port: http
+            failureThreshold: 30
+            periodSeconds: 2
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 25m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi
+        - name: chromium
+          image: mcr.microsoft.com/playwright:v1.58.2-noble
+          command:
+            - /bin/sh
+            - -c
+            - exec npx -y playwright@1.58.2 run-server --port 3000 --host 127.0.0.1
+          ports:
+            - name: browser
+              containerPort: 3000
+          startupProbe:
+            exec:
+              command:
+                - node
+                - -e
+                - fetch('http://127.0.0.1:3000').then(() => process.exit(0)).catch(() => process.exit(1))
+            failureThreshold: 60
+            periodSeconds: 2
+          readinessProbe:
+            exec:
+              command:
+                - node
+                - -e
+                - fetch('http://127.0.0.1:3000').then(() => process.exit(0)).catch(() => process.exit(1))
+            periodSeconds: 5
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 640Mi
+          volumeMounts:
+            - name: dshm
+              mountPath: /dev/shm
+      imagePullSecrets:
+        - name: cloudflare-private-registry
+      volumes:
+        - name: dshm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: viajar-pdf-renderer
+spec:
+  selector:
+    app.kubernetes.io/name: viajar-pdf-renderer
+  ports:
+    - name: http
+      port: 3001
+      targetPort: http

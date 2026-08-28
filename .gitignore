@@ -3,6 +3,7 @@ local.auto.tfvars
 secrets.auto.tfvars
 .envrc-secrets
 .direnv
+.worktrees/
 kubeconfig.yaml
 
 # Local .terraform directories

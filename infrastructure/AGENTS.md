@@ -40,8 +40,6 @@ use their CRDs.
 
 ## Operational Boundaries
 
-- Do not perform live Helm upgrades or imperative Istio/cert-manager changes as
-  a substitute for editing these resources.
 - `hccm-values.yaml` at the repository root is not referenced by a Flux or Helm
   resource. The Hetzner Cloud Controller Manager installation is not declared
   in this repository, so do not assume that file is reconciled.

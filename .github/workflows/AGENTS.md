@@ -19,6 +19,9 @@ security- and production-sensitive.
 
 - Preserve repository-dispatch event names and client payload shapes unless all
   producers and consumers are updated together.
+- Both deployment workflows accept a source commit SHA from either
+  `repository_dispatch` or `workflow_dispatch`, validate it, and normalize it
+  to the eight-character image tag published by their build workflows.
 - Preserve required GitHub variable and secret names unless the repository
   configuration is migrated at the same time.
 - The Marianobe deployment workflow edits
@@ -38,8 +41,10 @@ security- and production-sensitive.
   triggers, target paths, and third-party action versions.
 - Do not interpolate GitHub expressions directly into shell scripts. Pass event
   data through an environment variable, quote it in the shell, and validate its
-  expected format before using it in a command. Repository-dispatch SHAs must
-  be validated as Git object IDs before use.
+  expected format before using it in a command. Deployment source SHAs must be
+  validated as hexadecimal commit identifiers. Restic SHAs must resolve in this
+  repository; the Marianobe SHA comes from an external repository and need not
+  exist in this checkout.
 - Pin new or updated third-party actions to a full commit SHA, especially in
   workflows with registry credentials, write tokens, or `contents: write`. Do
   not introduce mutable references such as `@main`.

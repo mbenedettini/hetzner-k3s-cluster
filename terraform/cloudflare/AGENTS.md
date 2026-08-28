@@ -42,4 +42,3 @@ content and would revert an imperative deployment on the next apply.
 - Keep credentials in ignored variable files or environment variables.
 - Treat the bucket name, Worker script name, subdomain, bindings,
   compatibility date, and authentication contract as externally consumed.
-- Do not apply changes without explicit authorization and a reviewed plan.

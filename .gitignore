@@ -9,6 +9,12 @@ kubeconfig.yaml
 # Local .terraform directories
 **/.terraform/*
 
+# Terraform state and saved plans
+*.tfstate
+*.tfstate.*
+*.tfplan
+tfplan
+
 # SSH keys
 keys
 

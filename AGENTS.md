@@ -27,9 +27,9 @@ areas. Nested guidance supplements this file.
   installs/upgrades, or imperative resource edits as a substitute for GitOps.
 - Flux reconciles `main` with pruning enabled. A merge, deletion, or path rename
   can change or remove live resources.
-- Do not run `terraform apply`, `terraform destroy`, state commands, live
-  `flux reconcile`, or deployment workflow dispatches unless the user
-  explicitly requests the live operation.
+- Live reconciliation, deployment, cloud mutation, and destructive state
+  operations require explicit authorization. Scoped guidance lists the
+  relevant commands and risks.
 - Prefer rendering, formatting, static validation, and reviewed Terraform plans.
 - Inspect reconciliation and runtime dependencies before renaming or deleting
   resources.
@@ -76,12 +76,9 @@ For other changes, use the narrowest applicable checks:
 
 ```bash
 bash -n path/to/script.sh
-terraform -chdir=terraform/staging fmt -check
-terraform -chdir=terraform/staging init -backend=false
-terraform -chdir=terraform/staging validate
 git diff --check
 ```
 
-There is no Terraform root module at the repository root. Always select an
-actual stack explicitly. Read `README.md` for the operator-facing overview and
-connection instructions.
+For Terraform checks, use the stack-specific commands in `terraform/AGENTS.md`.
+There is no Terraform root module at the repository root. Read `README.md` for
+the operator-facing overview and connection instructions.

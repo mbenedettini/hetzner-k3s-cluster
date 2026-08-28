@@ -1,7 +1,6 @@
 # Application Guidance
 
-Application resources are reconciled by Flux from `apps/staging`. Follow the
-root safety and secret-handling rules in addition to the conventions below.
+Application resources are reconciled by Flux from `apps/staging`.
 
 ## Layout And Ownership
 
@@ -16,14 +15,11 @@ root safety and secret-handling rules in addition to the conventions below.
 
 ## Secrets
 
-- Application secret manifests are SOPS-encrypted in place and must never be
-  committed decrypted.
 - Ensure encrypted runtime and registry Secrets remain listed by the owning
   Kustomization.
-- Decrypt a secret only when the explicit task requires it. Do not print or log
-  decrypted values. If a local plaintext artifact is unavoidable, use the
-  ignored `*-plain.yaml` convention and remove the artifact immediately after
-  re-encryption; the ignore rule is only a final safeguard.
+- When an explicit secret-editing task requires a local plaintext artifact, use
+  the ignored `*-plain.yaml` convention and remove the artifact immediately
+  after re-encryption; the ignore rule is only a final safeguard.
 
 ## Shared Ingress Contract
 

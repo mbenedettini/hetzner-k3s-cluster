@@ -25,12 +25,8 @@ configuration.
   mean a template change will be safely applied to an existing node.
 - Review changes to `master-cloud-init.yaml` as cluster bootstrap changes, not
   ordinary application configuration.
-- Follow the inherited `terraform/AGENTS.md` rules for sensitive cloud-init
-  templates and the external-cloud-provider configuration.
 
 ## Workflow
 
-Use formatting, backend-disabled initialization, validation, and a reviewed
-plan. Never apply, destroy, import, taint, or manipulate state without explicit
-authorization. Call out any proposed replacement of the master, network, or
-subnet before proceeding.
+Call out any proposed replacement of the master, network, or subnet when
+reviewing a plan.
